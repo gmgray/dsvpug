@@ -1,6 +1,6 @@
 virtualenv + pip - why use virtualenv
 - modules
-- how modules are resolved
+- how modules are resolved (check sys.path)
 - examples on pip
 # Preparation
 virtualenv .
