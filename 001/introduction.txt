@@ -1,0 +1,27 @@
+# Preparation
+virtualenv .
+source bin/activate
+pip3 install requests
+pip3 install beautifulsoup4
+# usage
+import requests
+from bs4 import BeautifulSoup
+url="https://www.wikipedia.org/"
+r=requests.get(url)
+text=r.text
+parsed_html=BeautifulSoup(text)
+
+# searching through parsed html
+options=parsed_html.findAll('option')
+for option in options:
+	print(option["lang"],':',option.text)
+
+# searching for specific div id
+url="https://pl.wikipedia.org/"
+r=requests.get(url)
+text=r.text
+parsed_html=BeautifulSoup(text)
+# print parsed_html to show page structure
+# interesting article is placed in div id="main-page-good-article"
+article=parsed_html.find('div',id="main-page-good-article")
+print(article.text)
