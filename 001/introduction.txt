@@ -1,3 +1,7 @@
+virtualenv + pip - why use virtualenv
+- modules
+- how modules are resolved
+- examples on pip
 # Preparation
 virtualenv .
 source bin/activate
