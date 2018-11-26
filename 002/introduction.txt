@@ -1,0 +1,24 @@
+# pip install xlwt
+
+# import module xlwt
+import xlwt
+from datetime import datetime
+
+# define styles
+
+styleBold = xlwt.easyxf('font: name Times New Roman, color-index blue, bold on',num_format_str='#,##0.00')
+styleDateTime = xlwt.easyxf(num_format_str='DD-MM-YYYY H:m:S')
+
+# create workbook and add sheet
+wb=xlwt.Workbook()
+ws=wb.add_sheet('Python data')
+
+# add some text into cell using format
+ws.write(0,0,1234.56,styleBold)
+ws.write(1,0, datetime.now(),styleDateTime)
+
+# add formula
+ws.write(2,2,xlwt.Formula("A3+B3"))
+
+# save output to a file
+wb.save('filename.xls')
