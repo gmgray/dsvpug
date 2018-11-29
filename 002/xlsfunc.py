@@ -9,7 +9,7 @@ class xls:
     You can set filename, title and sheet name during class initialization.
     if description is given, then it will be added below title.    
     """
-    def __init__(self, filename='output.xls',title='Created with Python and XLWT',sheet='Python is awesome!',description=None):
+    def __init__(self, filename='output.xlsx',title='Created with Python and XLWT',sheet='Python is awesome!',description=None):
         self.filename       = filename
         self.title          = title
         self.sheet          = sheet
@@ -35,15 +35,21 @@ class xls:
             #iterate through rows:
             for _row in data:
                 #iterate through columns:
-                for _column in _row:
-                    self.__sheet.write(self.row,self.column,_column)                
-                    #increment column
-                    self.column += 1
+                if (isinstance(_row,str) or isinstance(_row,int)):
+                    self.__sheet.write(self.row,self.column,_row)
+                    self.row += 1
+                    self.column = 0
+                else:
+                    for _column in _row:
+                        self.__sheet.write(self.row,self.column,_column)                
+                        #increment column
+                        self.column += 1
                 #next row here: increment row, reset colum
-                self.row += 1
-                self.column = 0
-        except:
+                    self.row += 1
+                    self.column = 0
+        except e:
             print("Not valid data format. Cannot convert it to table!")
+            print(e)
 
     def save(self):
         """
