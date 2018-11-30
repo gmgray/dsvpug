@@ -21,4 +21,4 @@ for i in range(2,12):
         ws.write(i,j,random.randint(1,10000))
 # add formula
 ws.write(13,5,xlwt.Formula("SUM(C2:C12)"))
-wb.save('output.xls')
+wb.save('output_new.xls')
