@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />    
+</head>
+<body>
+    <div class="container">
+    <!-- page contents start here -->
+<h1>Using markdown package for markdown processing</h1>
+<p>Markdown syntax allows you to use simple syntax for defining structured text. Usually this is used for quick and easy writing parts of HTML code.</p>
+<h2>Preparation</h2>
+<p>To get it started working in python markdown package is necessary (with optional pygments, which is output code highlighter):</p>
+<p><kbd>pip install markdown</kbd></p>
+<p><kbd>pip install pygments</kbd></p>
+<p>next, we need to create CSS for converted code output:</p>
+<p><kbd>pygmentize.exe -S default -f html -a .codehilite &gt; styles.css</kbd></p>
+<p>If wanted, different style can be choosen (<code>-S default</code> parameter).
+To see all styles available, use</p>
+<p><kbd>pygmentize -L style</kbd></p>
+<p>which will give you something similar to:</p>
+<div class="codehilite"><pre><span></span>Pygments version 2.3.0, (c) 2006-2017 by Georg Brandl.
+
+Styles:
+~~~~~~~
+* default:
+    The default style (inspired by Emacs 22).
+* emacs:
+    The default style (inspired by Emacs 22).
+* friendly:
+    A modern style based on the VIM pyte theme.
+* colorful:
+    A colorful style, inspired by CodeRay.
+* autumn:
+    A colorful style, inspired by the terminal highlighting style.
+* murphy:
+    Murphy&#39;s style from CodeRay.
+* manni:
+    A colorful style, inspired by the terminal highlighting style.
+* monokai:
+    This style mimics the Monokai color scheme.
+* perldoc:
+    Style similar to the style used in the perldoc code blocks.
+* pastie:
+    Style similar to the pastie default style.
+* borland:
+    Style similar to the style used in the borland IDEs.
+* trac:
+    Port of the default trac highlighter design.
+(...)
+</pre></div>
+
+
+<p>et caetera.</p>
+<h2>Usage</h2>
+<p>Simple code example:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># !/usr/bin/python3</span>
+<span class="kn">import</span> <span class="nn">markdown</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+
+<span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"># This is simple test for markdown output conversion</span>
+
+<span class="s2">Let&#39;s see how it works.</span>
+
+<span class="s2">## Tables</span>
+
+<span class="s2">no. | name      | surname</span>
+<span class="s2">--- | --------- | ---------------------</span>
+<span class="s2">1   | Gabriel   | Milczarek</span>
+<span class="s2">2   | Łukasz    | Bryzek</span>
+<span class="s2">3   | Marcin    | Kawka</span>
+
+<span class="s2">`extension=[&#39;tables&#39;] is needed here`</span>
+
+<span class="s2">Some simple list:</span>
+
+<span class="s2">- this is simple list item</span>
+<span class="s2">- created by markdown</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">html</span><span class="o">=</span><span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">extensions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tables&#39;</span><span class="p">,</span><span class="s1">&#39;fenced_code&#39;</span><span class="p">,</span><span class="s1">&#39;codehilite&#39;</span><span class="p">])</span>
+<span class="c1"># note: if you don&#39;t want to use tables, code blocks and code highlighting, </span>
+<span class="c1"># you can omit extensions parameter</span>
+
+<span class="c1"># print contents to utf-8 encoded html file:</span>
+<span class="n">output_file</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;output.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span>
+                          <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+                          <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;xmlcharrefreplace&quot;</span>
+<span class="p">)</span>
+<span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<p>and the output will look like:
+<div class="card">
+<div class="card-header">created output</div>
+  <div class="card-body"></p>
+<h1>This is simple test for markdown output conversion</h1>
+<p>Let's see how it works.</p>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>no.</th>
+<th>name</th>
+<th>surname</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Gabriel</td>
+<td>Milczarek</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Łukasz</td>
+<td>Bryzek</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Marcin</td>
+<td>Kawka</td>
+</tr>
+</tbody>
+</table>
+<p><code>extension=['tables'] is needed here</code></p>
+<p>Some simple list:</p>
+<ul>
+<li>this is simple list item</li>
+<li>created by markdown
+</div>
+</div></li>
+</ul>
+    <!-- page contents end here   -->
+    </div>
+</body>
+</html>
