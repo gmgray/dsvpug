@@ -2,6 +2,7 @@
 import os
 import re
 from shutil import copyfile
+
 # some const here:
 
 #FOLDER_ROOT: here is the main folder containing all the new directories
@@ -23,6 +24,7 @@ class SRQProject():
         self.Client     =   Client
         self.Requestor  =   Requestor
         self.Description=   Description.replace(':','').replace('>','2').replace('!','')
+        #self.Description=   Description
         self.__folder__ = None
 
     def createFolders(self):
